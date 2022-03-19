@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/classic_jump.wav-b5d326454f056b8d455983f6983aa546.sample"
+
+[deps]
+
+source_file="res://asset/audio/classic_jump.wav"
+dest_files=[ "res://.import/classic_jump.wav-b5d326454f056b8d455983f6983aa546.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
