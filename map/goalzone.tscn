@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://asset/texture/SpritesSheet_Tiles.png" type="Texture" id=1]
+[ext_resource path="res://map/goal_spot.tscn" type="PackedScene" id=2]
 
 [sub_resource type="TileSet" id=1]
 0/name = "SpritesSheet_Tiles.png 0"
@@ -25,9 +26,55 @@
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 8, 8 )
+
 [node name="goalzone" type="TileMap"]
 position = Vector2( 8, 0 )
 tile_set = SubResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 196607, 1610612736, 393216, 131072, 536870912, 1, 131073, 1610612736, 393216, 131074, 1610612736, 393216, 131075, 536870912, 1, 131076, 1610612736, 393216, 131077, 1610612736, 393216, 131078, 536870912, 1, 131079, 1610612736, 393216, 131080, 1610612736, 393216, 131081, 536870912, 1, 131082, 1610612736, 393216, 131083, 1610612736, 393216, 131084, 536870912, 1, 131085, 1610612736, 393216 )
+
+[node name="goal_spot" parent="." instance=ExtResource( 2 )]
+position = Vector2( 104, 40 )
+
+[node name="goal_spot2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 56, 40 )
+
+[node name="goal_spot3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 8, 40 )
+
+[node name="goal_spot4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 152, 40 )
+
+[node name="goal_spot5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 200, 40 )
+
+[node name="kill_zone" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kill_zone"]
+position = Vector2( -16, 40 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="kill_zone"]
+position = Vector2( 80, 40 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="kill_zone"]
+position = Vector2( 128, 40 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="kill_zone"]
+position = Vector2( 176, 40 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="kill_zone"]
+position = Vector2( 224, 40 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="kill_zone"]
+position = Vector2( 32, 40 )
+shape = SubResource( 3 )

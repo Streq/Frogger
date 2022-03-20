@@ -61,7 +61,11 @@ func move():
 				
 				if vp.has_point(global_position) and vp.has_point(target_global_pos):
 					step_sound.play()
-					tween.interpolate_property(self, "position", null, position + d.vec*STEP_SIZE, STEP_SPEED)
+					if d.vec.y:
+						tween.interpolate_property(self, "global_position", null, global_position + d.vec*STEP_SIZE, STEP_SPEED)
+					else:
+						tween.interpolate_property(self, "position", null, position + d.vec*STEP_SIZE, STEP_SPEED)
+					
 					tween.start()
 					animation.play(d.jump_anim,-1, 1.0/STEP_SPEED)
 					d.pressed = false
