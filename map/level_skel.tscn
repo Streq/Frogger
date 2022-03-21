@@ -1,24 +1,14 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://map/wrap_area.gd" type="Script" id=1]
-[ext_resource path="res://map/lanes/street_1_4.tscn" type="PackedScene" id=2]
 [ext_resource path="res://map/tilemap.tscn" type="PackedScene" id=3]
-[ext_resource path="res://map/lanes/water_1_2.tscn" type="PackedScene" id=4]
-[ext_resource path="res://map/lanes/water_1_1.tscn" type="PackedScene" id=5]
-[ext_resource path="res://map/lanes/street_1_3.tscn" type="PackedScene" id=6]
 [ext_resource path="res://map/goalzone.tscn" type="PackedScene" id=7]
 [ext_resource path="res://frogger/frogger.tscn" type="PackedScene" id=8]
-[ext_resource path="res://map/lanes/street_1_5.tscn" type="PackedScene" id=9]
-[ext_resource path="res://map/lanes/street_1_2.tscn" type="PackedScene" id=10]
-[ext_resource path="res://map/lanes/water_1_4.tscn" type="PackedScene" id=11]
-[ext_resource path="res://map/lanes/street_1_1.tscn" type="PackedScene" id=12]
 [ext_resource path="res://map/level.gd" type="Script" id=13]
 [ext_resource path="res://asset/font/OptionC_UpheavalPro.tres" type="DynamicFontData" id=14]
 [ext_resource path="res://asset/texture/white_pixel.png" type="Texture" id=15]
 [ext_resource path="res://asset/texture/life_texture.tres" type="Texture" id=16]
 [ext_resource path="res://HUD/message.tscn" type="PackedScene" id=17]
-[ext_resource path="res://map/lanes/water_1_5.tscn" type="PackedScene" id=18]
-[ext_resource path="res://map/lanes/water_1_3.tscn" type="PackedScene" id=19]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 112, 64 )
@@ -73,28 +63,6 @@ script = ExtResource( 1 )
 position = Vector2( 112, 128 )
 shape = SubResource( 3 )
 
-[node name="street0" parent="." instance=ExtResource( 12 )]
-
-[node name="street1" parent="." instance=ExtResource( 10 )]
-
-[node name="street2" parent="." instance=ExtResource( 6 )]
-
-[node name="street3" parent="." instance=ExtResource( 2 )]
-
-[node name="street4" parent="." instance=ExtResource( 9 )]
-
-[node name="water0" parent="." instance=ExtResource( 5 )]
-
-[node name="water1" parent="." instance=ExtResource( 4 )]
-position = Vector2( 112, 104 )
-
-[node name="water2" parent="." instance=ExtResource( 19 )]
-
-[node name="water3" parent="." instance=ExtResource( 11 )]
-position = Vector2( 112, 72 )
-
-[node name="water4" parent="." instance=ExtResource( 18 )]
-
 [node name="kill_zone" type="Area2D" parent="."]
 collision_layer = 9
 collision_mask = 0
@@ -106,6 +74,8 @@ shape = SubResource( 4 )
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="kill_zone"]
 position = Vector2( 256, 128 )
 shape = SubResource( 4 )
+
+[node name="lanes" type="Node2D" parent="."]
 
 [node name="frogger" parent="." groups=["player"] instance=ExtResource( 8 )]
 position = Vector2( 120, 232 )
@@ -121,13 +91,6 @@ margin_bottom = 258.0
 custom_fonts/font = SubResource( 6 )
 text = "TIME"
 
-[node name="level_label" type="Label" parent="."]
-margin_left = 176.0
-margin_right = 226.0
-margin_bottom = 10.0
-custom_fonts/font = SubResource( 6 )
-text = "level"
-
 [node name="lives_label" type="Label" parent="."]
 margin_left = 16.0
 margin_top = 240.0
@@ -136,50 +99,6 @@ margin_bottom = 256.0
 custom_fonts/font = SubResource( 6 )
 text = "x2"
 valign = 1
-
-[node name="score_label" type="Label" parent="."]
-margin_right = 50.0
-margin_bottom = 16.0
-custom_fonts/font = SubResource( 6 )
-text = "score"
-align = 2
-
-[node name="hiscore_label" type="Label" parent="."]
-margin_left = 80.0
-margin_right = 130.0
-margin_bottom = 16.0
-custom_fonts/font = SubResource( 6 )
-text = "hi-score"
-align = 2
-
-[node name="score_value_label" type="Label" parent="."]
-margin_top = 8.0
-margin_right = 50.0
-margin_bottom = 24.0
-custom_colors/font_color = Color( 0.654902, 0, 0.133333, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "00000"
-align = 2
-
-[node name="level_value_label" type="Label" parent="."]
-margin_left = 176.0
-margin_top = 8.0
-margin_right = 226.0
-margin_bottom = 24.0
-custom_colors/font_color = Color( 0.654902, 0, 0.133333, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "1"
-align = 1
-
-[node name="hiscore_value_label" type="Label" parent="."]
-margin_left = 88.0
-margin_top = 8.0
-margin_right = 138.0
-margin_bottom = 24.0
-custom_colors/font_color = Color( 0.654902, 0, 0.133333, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "00000"
-align = 2
 
 [node name="message" parent="." instance=ExtResource( 17 )]
 position = Vector2( 112, 140 )

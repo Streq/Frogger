@@ -13,6 +13,7 @@ onready var sprite = $Sprite
 onready var animation = $animation
 onready var ground_detect := $ground_detect as Area2D
 onready var death_timer = $death_timer
+var level = null
 
 onready var dirs = {
 	"down": Dir.new("down", Vector2.DOWN),
@@ -63,8 +64,8 @@ func update_ground():
 	else:
 #		print_debug("no ground")
 		should_drown = true
-		if get_parent() != get_tree().root:
-			reparent(get_tree().root)
+		if get_parent() != level:
+			reparent(level)
 
 func _physics_process(delta):
 	if !dead:

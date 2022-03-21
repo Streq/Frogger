@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://map/lane.gd" type="Script" id=1]
+[ext_resource path="res://entities/flippable.gd" type="Script" id=2]
+[ext_resource path="res://entities/car/car.tscn" type="PackedScene" id=3]
+
+[node name="street1" type="Node2D"]
+position = Vector2( 112, 200 )
+script = ExtResource( 1 )
+flip_to_speed = true
+speed = 10.0
+
+[node name="car" type="Area2D" parent="." instance=ExtResource( 3 )]
+position = Vector2( 56, 0 )
+collision_layer = 9
+collision_mask = 4
+script = ExtResource( 2 )
+
+[node name="car2" type="Area2D" parent="." instance=ExtResource( 3 )]
+position = Vector2( -8, 0 )
+collision_layer = 9
+collision_mask = 4
+script = ExtResource( 2 )
+
+[node name="car3" type="Area2D" parent="." instance=ExtResource( 3 )]
+position = Vector2( 120, 0 )
+collision_layer = 9
+collision_mask = 4
+script = ExtResource( 2 )

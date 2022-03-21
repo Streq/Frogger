@@ -7,8 +7,6 @@ onready var spawn_point := $spawn_point
 onready var player := $frogger as Frog
 onready var time_bar := $time_bar
 onready var lives_label := $lives_label
-onready var score_value_label := $score_value_label
-onready var hiscore_value_label := $hiscore_value_label
 onready var message = $message
 
 
@@ -31,21 +29,23 @@ func setup_player():
 	player_timer = player.death_timer as Timer
 	
 	player.record_y = player.global_position.y
-	lives_label.text = "x%d" % Global.current_lives
+	update_lives_display()
 	
 	player.update_ground()
 	player._on_step_landed()
-
 	
+	player.level = self
+
+func update_lives_display():
+	lives_label.text = "x%d" % Global.current_lives
+
 func _ready():
+	Global.connect("life_up", self, "update_lives_display")
 	setup_player()
 
 func _process(delta):
 	if is_instance_valid(player_timer):
 		time_bar.value = player_timer.time_left / player_timer.wait_time * 100
-	score_value_label.text = String(Global.current_score).pad_zeros(5)
-	hiscore_value_label.text = String(Global.hiscore).pad_zeros(5)
-
 func _physics_process(delta):
 	if completed:
 		yield(message.timer,"timeout")
@@ -65,15 +65,14 @@ func _on_frogger_dead(who, why):
 	if why == "timeout":
 		message.set_message("TIME OVER", 5.0)
 	
-	var coso = yield(death_anim, "animation_finished")
+	yield(death_anim, "animation_finished")
 	message.set_message("")
 	
 	
 	
 	if Global.current_lives<0:
-		emit_signal("game_over")
-		message.set_message("GAME OVER", 5.0)
-		
+		message.set_message("GAME OVER", 2.0)
+		message.timer.connect("timeout", Global, "game_over", [], CONNECT_ONESHOT)
 	else:
 		frog.queue_free()
 		spawn()

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://map/lane.gd" type="Script" id=1]
+[ext_resource path="res://entities/float/turtles/turtles_2.tscn" type="PackedScene" id=3]
+
+[node name="water3" type="Node2D"]
+position = Vector2( 144, 72 )
+script = ExtResource( 1 )
+speed = -15.0
+
+[node name="turtles" parent="." instance=ExtResource( 3 )]
+position = Vector2( 40, 0 )
+
+[node name="turtles2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -16, 0 )
+
+[node name="turtles3" parent="." instance=ExtResource( 3 )]
+position = Vector2( -72, 0 )
+dive_speed = 0.25
+dive = true
+
+[node name="turtles4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 96, 0 )

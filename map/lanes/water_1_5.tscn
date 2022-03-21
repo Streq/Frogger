@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://map/lane.gd" type="Script" id=1]
+[ext_resource path="res://entities/float/medium_log.tscn" type="PackedScene" id=2]
+
+[node name="water4" type="Node2D"]
+position = Vector2( 112, 56 )
+script = ExtResource( 1 )
+speed = 20.0
+
+[node name="medium_log" type="Node2D" parent="." instance=ExtResource( 2 )]
+
+[node name="medium_log2" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( 80, 0 )
+
+[node name="medium_log3" type="Node2D" parent="." instance=ExtResource( 2 )]
+position = Vector2( -96, 0 )

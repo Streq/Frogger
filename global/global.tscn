@@ -1,10 +1,74 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://global/global.gd" type="Script" id=1]
 [ext_resource path="res://frogger/frogger.tscn" type="PackedScene" id=2]
-[ext_resource path="res://map/level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://map/levels/1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://main.tscn" type="PackedScene" id=4]
+[ext_resource path="res://asset/font/OptionC_UpheavalPro.tres" type="DynamicFontData" id=5]
 
-[node name="Global" type="Node"]
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 5 )
+
+[node name="Global" type="CanvasLayer"]
+layer = 128
 script = ExtResource( 1 )
 PLAYER = ExtResource( 2 )
+MAIN_MENU = ExtResource( 4 )
 levels = [ ExtResource( 3 ) ]
+
+[node name="score_label" type="Label" parent="."]
+margin_right = 50.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 1 )
+text = "score"
+align = 2
+
+[node name="score_value_label" type="Label" parent="."]
+margin_top = 8.0
+margin_right = 50.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 0.654902, 0, 0.133333, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "00000"
+align = 2
+
+[node name="hiscore_label" type="Label" parent="."]
+margin_left = 80.0
+margin_right = 130.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 2 )
+text = "hi-score"
+align = 2
+
+[node name="hiscore_value_label" type="Label" parent="."]
+margin_left = 88.0
+margin_top = 8.0
+margin_right = 138.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 0.654902, 0, 0.133333, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "00000"
+align = 2
+
+[node name="level_label" type="Label" parent="."]
+margin_left = 176.0
+margin_right = 226.0
+margin_bottom = 10.0
+custom_fonts/font = SubResource( 3 )
+text = "level"
+
+[node name="level_value_label" type="Label" parent="."]
+margin_left = 176.0
+margin_top = 8.0
+margin_right = 226.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 0.654902, 0, 0.133333, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "1"
+align = 1

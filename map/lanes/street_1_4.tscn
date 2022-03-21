@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://map/lane.gd" type="Script" id=1]
+[ext_resource path="res://entities/car/car.tscn" type="PackedScene" id=3]
+
+[node name="street3" type="Node2D"]
+position = Vector2( 112, 168 )
+script = ExtResource( 1 )
+flip_to_speed = true
+speed = 15.0
+
+[node name="car" parent="." instance=ExtResource( 3 )]
+position = Vector2( -40, 0 )
