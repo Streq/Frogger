@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://map/lane.gd" type="Script" id=1]
+[ext_resource path="res://map/speed_up_timer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/car/car.tscn" type="PackedScene" id=3]
 
 [node name="street3" type="Node2D"]
@@ -11,3 +12,11 @@ speed = 15.0
 
 [node name="car" parent="." instance=ExtResource( 3 )]
 position = Vector2( -40, 0 )
+
+[node name="Sprite" parent="car" index="0"]
+frame = 4
+
+[node name="Timer" parent="." instance=ExtResource( 2 )]
+wait_time = 65.0
+
+[editable path="car"]
