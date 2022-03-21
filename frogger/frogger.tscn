@@ -348,7 +348,7 @@ collision_mask = 8
 shape = SubResource( 12 )
 
 [node name="death_timer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 6.0
 one_shot = true
 autostart = true
 

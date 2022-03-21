@@ -17,5 +17,6 @@ func _on_goal():
 	goals_completed += 1
 	emit_signal("goal")
 	
+	
 	if goals_completed == goals.get_children().size():
 		emit_signal("level_completed")
