@@ -12,10 +12,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 10, 12, 10 ]
+"values": [ 10, 11, 12, 13, 13, 12, 11, 10, 9 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath("ground/CollisionShape2D")
@@ -67,7 +67,7 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 
 [node name="Sprite" parent="." index="1"]
-frame = 10
+frame = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 autoplay = "idle"
