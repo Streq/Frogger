@@ -20,7 +20,7 @@ layer = 128
 script = ExtResource( 1 )
 PLAYER = ExtResource( 2 )
 MAIN_MENU = ExtResource( 4 )
-levels = [ ExtResource( 3 ) ]
+levels = [ ExtResource( 3 ), ExtResource( 3 ) ]
 
 [node name="score_label" type="Label" parent="."]
 margin_right = 50.0

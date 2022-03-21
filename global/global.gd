@@ -12,7 +12,7 @@ const LIVES := 2
 const SCORE_1UP = 20000
 
 var current_lives = LIVES
-var current_level = -1
+var current_level = 0
 var current_score = 0 setget set_current_score
 var hiscore = 0
 var lives_score = 1
@@ -51,3 +51,6 @@ func update_score():
 func update_level():
 	$level_value_label.text = String(current_level + 1)
 
+func _input(event):
+	if event.is_action_pressed("ui_select"):
+		next_level()

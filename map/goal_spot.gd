@@ -6,6 +6,8 @@ onready var goal_area = $goal_area
 onready var kill_zone = $kill_zone
 onready var sprite = $sprite_full
 
+var full = false
+
 func _on_goal_zone_area_entered(area):
 	call_deferred("goal_completed", area.owner)
 
@@ -16,4 +18,5 @@ func goal_completed(player):
 	kill_zone.monitorable = true
 	sprite.visible = true
 	emit_signal("goal")
+	full = true
 	

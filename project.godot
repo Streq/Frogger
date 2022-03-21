@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Frog",
 "language": "GDScript",
 "path": "res://frogger/frogger.gd"
+}, {
+"base": "Node",
+"class": "GoalSpawner",
+"language": "GDScript",
+"path": "res://map/goalzone/spawner.gd"
 } ]
 _global_script_class_icons={
-"Frog": ""
+"Frog": "",
+"GoalSpawner": ""
 }
 
 [application]

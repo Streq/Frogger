@@ -48,15 +48,11 @@ func _process(delta):
 		time_bar.value = player_timer.time_left / player_timer.wait_time * 100
 func _physics_process(delta):
 	if completed:
-		yield(message.timer,"timeout")
-		next_level()
+		pass
 	elif goal_completed:
 		goal_completed = false
 		spawn()
 
-func next_level():
-	message.set_message("laso",2)
-	pass
 	
 func _on_frogger_dead(who, why):
 	Global.current_lives -= 1
@@ -68,15 +64,12 @@ func _on_frogger_dead(who, why):
 	yield(death_anim, "animation_finished")
 	message.set_message("")
 	
-	
-	
 	if Global.current_lives<0:
 		message.set_message("GAME OVER", 2.0)
 		message.timer.connect("timeout", Global, "game_over", [], CONNECT_ONESHOT)
 	else:
 		frog.queue_free()
 		spawn()
-		setup_player()
 
 
 func _on_time_bar_value_changed(value):
@@ -95,3 +88,5 @@ func _on_goalzone_goal():
 
 func _on_goalzone_level_completed():
 	completed = true
+	yield(message.timer,"timeout")
+	Global.next_level()

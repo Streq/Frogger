@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://map/lanes/water_1_1.tscn" type="PackedScene" id=1]
 [ext_resource path="res://map/lanes/street_1_2.tscn" type="PackedScene" id=2]
@@ -11,8 +11,11 @@
 [ext_resource path="res://map/lanes/water_1_4.tscn" type="PackedScene" id=9]
 [ext_resource path="res://map/lanes/water_1_2.tscn" type="PackedScene" id=10]
 [ext_resource path="res://map/lanes/street_1_5.tscn" type="PackedScene" id=11]
+[ext_resource path="res://map/goalzone/fly.tscn" type="PackedScene" id=12]
 
 [node name="level" instance=ExtResource( 4 )]
+
+[node name="fly" parent="goalzone" index="2" instance=ExtResource( 12 )]
 
 [node name="street0" parent="lanes" index="0" instance=ExtResource( 3 )]
 
