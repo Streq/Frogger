@@ -1,9 +1,9 @@
 extends Node2D
-
-signal dead()
+class_name Frog
+signal dead(who, why)
 
 export var lives = 2
-const STEP_SIZE = Global.TILE_SIZE
+var STEP_SIZE = Global.TILE_SIZE
 const STEP_SPEED = 0.15
 
 
@@ -12,6 +12,7 @@ onready var step_sound = $step_sound
 onready var sprite = $Sprite
 onready var animation = $animation
 onready var ground_detect = $ground_detect
+onready var death_timer = $death_timer
 
 onready var dirs = {
 	"down": Dir.new("down", Vector2.DOWN),
@@ -26,6 +27,8 @@ var dead = false
 var should_drown = false
 var should_die = false
 var can_drown = true
+var timeout = false
+onready var record_y = global_position.y
 
 func _ready():
 	tween.connect("tween_all_completed", self, "_on_step_landed")
@@ -39,16 +42,20 @@ func _physics_process(delta):
 	if !dead:
 		move()
 		if should_die:
-			die()
+			die("squash")
 			animation.play("death")
 		elif should_drown:
-			die()
+			die("drown")
 			animation.play("drown")
+		elif timeout:
+			die("timeout")
+			animation.play("death")
 	
-func die():
+func die(cause):
 	dead = true
 	tween.stop_all()
-	emit_signal("dead")
+	emit_signal("dead", self, cause)
+	death_timer.paused = true
 	
 func move():
 	for dir in dirs:
@@ -105,18 +112,30 @@ func _on_ground_detect_area_exited(area):
 		reparent(get_tree().root)
 
 func _on_step_landed():
+	if global_position.y < record_y:
+		record_y = global_position.y
+		Global.current_score+=10
+		
 	var grounds = ground_detect.get_overlapping_areas()
 	if grounds.size() > 0: 
 		var ground = grounds[0]
 		if ground != get_parent():
-			can_drown = false
 			#change ground we're standing on
 			reparent(ground)
-			can_drown = true
 
 
 func reparent(new_parent):
+	call_deferred("_reparent_deferred", new_parent)
+
+func _reparent_deferred(new_parent):
+	can_drown = false
 	var aux_pos = global_position
-	get_parent().remove_child(self)
+	var old_parent = get_parent()
+	if is_instance_valid(old_parent):
+		old_parent.remove_child(self)
 	new_parent.add_child(self)
 	global_position = aux_pos
+	can_drown = true
+
+func _on_death_timer_timeout():
+	timeout = true
