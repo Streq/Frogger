@@ -307,5 +307,6 @@ position = Vector2( 8, 248 )
 texture = ExtResource( 16 )
 
 [connection signal="goal" from="goalzone" to="." method="_on_goalzone_goal"]
+[connection signal="level_completed" from="goalzone" to="." method="_on_goalzone_level_completed"]
 [connection signal="area_exited" from="wrap_area" to="wrap_area" method="_on_wrap_area_area_exited"]
 [connection signal="value_changed" from="time_bar" to="." method="_on_time_bar_value_changed"]

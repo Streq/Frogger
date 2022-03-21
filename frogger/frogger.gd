@@ -7,11 +7,11 @@ var STEP_SIZE = Global.TILE_SIZE
 const STEP_SPEED = 0.15
 
 
-onready var tween = $Tween
+onready var tween := $Tween as Tween
 onready var step_sound = $step_sound
 onready var sprite = $Sprite
 onready var animation = $animation
-onready var ground_detect = $ground_detect
+onready var ground_detect := $ground_detect as Area2D
 onready var death_timer = $death_timer
 
 onready var dirs = {
@@ -37,10 +37,43 @@ func _input(event):
 	for dir in dirs.values():
 		dir.input(event)
 
+var current_ground = null
+func query_ground():
+	var space_rid := get_world_2d().space
+	var space_state := Physics2DServer.space_get_direct_state(space_rid)
+	var params := Physics2DShapeQueryParameters.new()
+	params.collision_layer = ground_detect.collision_mask
+	var col_shape = ground_detect.get_node("CollisionShape2D")
+	params.set_shape(col_shape.shape)
+	params.transform = col_shape.global_transform
+	params.collide_with_areas = true
+	params.collide_with_bodies = false
+	
+	var grounds = space_state.intersect_shape(params)
+	for entry in grounds:
+		var ground = entry.collider as Area2D
+		return ground
+	return null
+func update_ground():
+	var on_ground = false
+	current_ground = query_ground()
+	if current_ground:
+#		print_debug(current_ground)
+		on_ground = true
+	else:
+#		print_debug("no ground")
+		should_drown = true
+		if get_parent() != get_tree().root:
+			reparent(get_tree().root)
 
 func _physics_process(delta):
 	if !dead:
 		move()
+		update_ground()
+#		print_debug("reparent_called:", rep)
+		rep = 0
+		
+		
 		if should_die:
 			die("squash")
 			animation.play("death")
@@ -53,10 +86,11 @@ func _physics_process(delta):
 	
 func die(cause):
 	dead = true
-	tween.stop_all()
+	tween.remove_all()
 	emit_signal("dead", self, cause)
 	death_timer.paused = true
-	
+
+
 func move():
 	for dir in dirs:
 		var d := dirs[dir] as Dir
@@ -64,7 +98,7 @@ func move():
 			if !tween.is_active():
 				var vp = get_viewport_rect()
 				var target_global_pos = global_position + d.vec*STEP_SIZE
-				print(vp, ", ",target_global_pos,", ",global_position)
+				print_debug(vp, ", ",target_global_pos,", ",global_position)
 				
 				if vp.has_point(global_position) and vp.has_point(target_global_pos):
 					step_sound.play()
@@ -101,41 +135,29 @@ class Dir:
 
 
 
-func _on_hurtbox_area_entered(area):
-	should_die = true
-
-func _on_ground_detect_area_entered(area):
-	should_drown = false
-func _on_ground_detect_area_exited(area):
-	if can_drown and ground_detect.get_overlapping_areas().size() == 0:
-		should_drown = true
-		reparent(get_tree().root)
-
-func _on_step_landed():
-	if global_position.y < record_y:
-		record_y = global_position.y
-		Global.current_score+=10
-		
-	var grounds = ground_detect.get_overlapping_areas()
-	if grounds.size() > 0: 
-		var ground = grounds[0]
-		if ground != get_parent():
-			#change ground we're standing on
-			reparent(ground)
-
-
+var rep = 0
 func reparent(new_parent):
-	call_deferred("_reparent_deferred", new_parent)
-
-func _reparent_deferred(new_parent):
-	can_drown = false
+	rep += 1
+	call_deferred("_reparent", new_parent)
+func _reparent(new_parent):
 	var aux_pos = global_position
+	tween.stop_all()
 	var old_parent = get_parent()
 	if is_instance_valid(old_parent):
 		old_parent.remove_child(self)
 	new_parent.add_child(self)
+	tween.resume_all()
 	global_position = aux_pos
-	can_drown = true
-
+	
 func _on_death_timer_timeout():
 	timeout = true
+	
+func _on_step_landed():
+	if global_position.y < record_y:
+		record_y = global_position.y
+		Global.current_score+=10
+	if current_ground and current_ground != get_parent():
+		reparent(current_ground)
+
+func _on_hurtbox_area_entered(area):
+	   should_die = true

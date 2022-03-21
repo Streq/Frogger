@@ -2,6 +2,8 @@ extends Node
 
 export var PLAYER : PackedScene
 
+export (Array, PackedScene) var levels
+
 const TILE_SIZE := 16
 
 const LIVES := 2

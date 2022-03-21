@@ -291,7 +291,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 4, 2 )
+extents = Vector2( 2, 2 )
 
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 7, 7 )
@@ -348,11 +348,9 @@ collision_mask = 8
 shape = SubResource( 12 )
 
 [node name="death_timer" type="Timer" parent="."]
-wait_time = 6.0
+wait_time = 30.0
 one_shot = true
 autostart = true
 
-[connection signal="area_entered" from="ground_detect" to="." method="_on_ground_detect_area_entered"]
-[connection signal="area_exited" from="ground_detect" to="." method="_on_ground_detect_area_exited"]
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]

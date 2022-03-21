@@ -16,6 +16,8 @@ export (Color) var low_time_color = Color(0xe7002fff)
 export (Color) var high_time_color = Color(0xb8a401ff)
 
 var player_timer : Timer = null
+var goal_completed = false
+var completed = false
 
 func spawn():
 	var new_player = Global.PLAYER.instance() as Frog
@@ -30,6 +32,9 @@ func setup_player():
 	
 	player.record_y = player.global_position.y
 	lives_label.text = "x%d" % Global.current_lives
+	
+	player.update_ground()
+	player._on_step_landed()
 
 	
 func _ready():
@@ -41,6 +46,18 @@ func _process(delta):
 	score_value_label.text = String(Global.current_score).pad_zeros(5)
 	hiscore_value_label.text = String(Global.hiscore).pad_zeros(5)
 
+func _physics_process(delta):
+	if completed:
+		yield(message.timer,"timeout")
+		next_level()
+	elif goal_completed:
+		goal_completed = false
+		spawn()
+
+func next_level():
+	message.set_message("laso",2)
+	pass
+	
 func _on_frogger_dead(who, why):
 	Global.current_lives -= 1
 	var frog := who as Frog
@@ -70,10 +87,12 @@ func _on_time_bar_value_changed(value):
 		time_bar.tint_progress = Color(0xb8a401ff)
 	
 
-
 func _on_goalzone_goal():
+	goal_completed = true
 	var time_points := int(player_timer.time_left)*2
 	var time := str(time_points).pad_zeros(2)
 	message.set_message("TIME "+time)
 	Global.current_score += 50 + time_points * 10
-	spawn()
+
+func _on_goalzone_level_completed():
+	completed = true
