@@ -74,6 +74,6 @@ shape = SubResource( 4 )
 disabled = true
 
 [node name="goal_spawner" parent="." instance=ExtResource( 4 )]
-spawn_time = 8.0
+spawn_time = 6.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]

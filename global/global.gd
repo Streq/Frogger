@@ -38,10 +38,13 @@ func new_game():
 
 func next_level():
 	current_level += 1
-	go_to_level(current_level)
+	var actual_level = current_level
+	if current_level >= levels.size():
+		actual_level = levels.size()-1 - ((current_level % levels.size()) % 2)
+	go_to_level(actual_level)
 
 func go_to_level(level):
-	get_tree().change_scene_to(levels[current_level])
+	get_tree().change_scene_to(levels[level])
 	update_level()
 
 func update_score():
@@ -52,5 +55,5 @@ func update_level():
 	$level_value_label.text = String(current_level + 1)
 
 func _input(event):
-	if event.is_action_pressed("ui_select"):
+	if event.is_action_pressed("ui_select") and OS.is_debug_build():
 		next_level()
