@@ -90,3 +90,4 @@ func _on_goalzone_level_completed():
 	completed = true
 	yield(message.timer,"timeout")
 	Global.next_level()
+

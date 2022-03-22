@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://map/lane.gd" type="Script" id=1]
-[ext_resource path="res://entities/float/medium_log.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/float/log/medium_log.tscn" type="PackedScene" id=2]
 
 [node name="water4" type="Node2D"]
 position = Vector2( 112, 56 )

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://global/global.gd" type="Script" id=1]
 [ext_resource path="res://frogger/frogger.tscn" type="PackedScene" id=2]
-[ext_resource path="res://map/levels/1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://levels/1.tscn" type="PackedScene" id=3]
 [ext_resource path="res://main.tscn" type="PackedScene" id=4]
 [ext_resource path="res://asset/font/OptionC_UpheavalPro.tres" type="DynamicFontData" id=5]
+[ext_resource path="res://levels/2.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 5 )
@@ -20,7 +21,7 @@ layer = 128
 script = ExtResource( 1 )
 PLAYER = ExtResource( 2 )
 MAIN_MENU = ExtResource( 4 )
-levels = [ ExtResource( 3 ), ExtResource( 3 ) ]
+levels = [ ExtResource( 3 ), ExtResource( 6 ) ]
 
 [node name="score_label" type="Label" parent="."]
 margin_right = 50.0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://entities/float/unit/log.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/float/log/log.tscn" type="PackedScene" id=1]
 
 [node name="left_log" instance=ExtResource( 1 )]
 
